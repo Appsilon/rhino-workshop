@@ -3,8 +3,7 @@ box::use(
 )
 box::use(
   app/logic/rhinos,
-  app/view/chart,
-  app/view/table,
+  app/view[chart, table],
 )
 
 #' @export
