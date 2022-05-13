@@ -13,6 +13,21 @@ fetch_data <- function() {
 }
 
 #' @export
+species <- c(
+  "Black Rhino",
+  "Indian Rhino",
+  "Javan Rhino",
+  "Southern White Rhino",
+  "Sumatran Rhino"
+)
+
+#' @export
+filter_species <- function(data, species) {
+  data |>
+    dplyr$filter(Species %in% species)
+}
+
+#' @export
 table <- function(data) {
   data |>
     tidyr$pivot_wider(names_from = Species, values_from = Population) |>

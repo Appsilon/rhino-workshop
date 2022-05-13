@@ -3,7 +3,7 @@ box::use(
 )
 box::use(
   app/logic/rhinos,
-  app/view[chart, table],
+  app/view[chart, filters, table],
 )
 
 grid <- function(...) div(class = "grid", ...)
@@ -15,6 +15,7 @@ ui <- function(id) {
   bootstrapPage(
     titlePanel("Rhino population over time"),
     grid(
+      card(filters$ui(ns("filters"))),
       card(table$ui(ns("table"))),
       card(chart$ui(ns("chart")))
     )
@@ -24,7 +25,8 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    data <- reactive(rhinos$fetch_data())
+    raw_data <- reactive(rhinos$fetch_data())
+    data <- filters$server("filters", raw_data)
     table$server("table", data)
     chart$server("chart", data)
   })
