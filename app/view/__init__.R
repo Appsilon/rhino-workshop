@@ -4,5 +4,6 @@
 #' @export
 box::use(
   ./chart,
+  ./filters,
   ./table
 )
