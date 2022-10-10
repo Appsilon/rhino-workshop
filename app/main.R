@@ -1,20 +1,21 @@
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, renderText, tags, textOutput],
+  shiny[bootstrapPage, moduleServer, NS],
+)
+box::use(
+  app/view/table,
 )
 
 #' @export
 ui <- function(id) {
   ns <- NS(id)
   bootstrapPage(
-    tags$h3(
-      textOutput(ns("message"))
-    )
+    table$ui(ns("table"))
   )
 }
 
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    output$message <- renderText("Hello!")
+    table$server("table")
   })
 }
