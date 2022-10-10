@@ -1,17 +1,23 @@
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, reactive],
+  shiny[bootstrapPage, div, moduleServer, NS, reactive, titlePanel],
 )
 box::use(
   app/logic/rhinos,
   app/view[chart, table],
 )
 
+grid <- function(...) div(class = "grid", ...)
+card <- function(...) div(class = "card", ...)
+
 #' @export
 ui <- function(id) {
   ns <- NS(id)
   bootstrapPage(
-    table$ui(ns("table")),
-    chart$ui(ns("chart"))
+    titlePanel("Rhino population over time"),
+    grid(
+      card(table$ui(ns("table"))),
+      card(chart$ui(ns("chart")))
+    )
   )
 }
 
