@@ -16,6 +16,9 @@ ui <- function(id) {
 server <- function(id, data) {
   shiny$moduleServer(id, function(input, output, session) {
     output$chart <- renderEcharts4r({
+      shiny$validate(
+        shiny$need(nrow(data()) > 0, "Select some species to see the chart")
+      )
       rhinos$chart(data())
     })
   })
